@@ -25,7 +25,7 @@
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "yarn bundle"
+    "build": "compile-src"
   },
   "dependencies": {
     "strip-ansi": "^4.0.0",

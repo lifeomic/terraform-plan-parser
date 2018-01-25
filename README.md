@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/lifeomic/terraform-plan-parser.svg?branch=master)](https://travis-ci.org/lifeomic/terraform-plan-parser)
 
+[![Coverage Status](https://coveralls.io/repos/github/lifeomic/terraform-plan-parser/badge.svg?branch=master)](https://coveralls.io/github/lifeomic/terraform-plan-parser?branch=master)
+
 This project provides a CLI and JavaScript API for parsing terraform
 plan output.
 
