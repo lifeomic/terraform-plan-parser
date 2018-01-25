@@ -1,5 +1,7 @@
 # Terraform Plan Parser
 
+[![Build Status](https://travis-ci.org/lifeomic/terraform-plan-parser.svg?branch=master)](https://travis-ci.org/lifeomic/terraform-plan-parser)
+
 This project provides a CLI and JavaScript API for parsing terraform
 plan output.
 
