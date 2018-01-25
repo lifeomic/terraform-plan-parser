@@ -1,0 +1,78 @@
+{
+  "errors": [
+    {
+      "code": "UNABLE_TO_PARSE_LINE",
+      "message": "Unable to parse \"XYZ strange line will be ignored\" (ignoring)"
+    },
+    {
+      "code": "ORPHAN_ATTRIBUTE_LINE",
+      "message": "Attribute line \"      floating_attribute_at_start:                       \"myservice\" (forces new resource)\" is not associated with a data source or resource (ignoring)"
+    },
+    {
+      "code": "UNTERMINATED_STRING",
+      "message": "Unterminated string on line \"      unterminated_string:          \"arn:aws:ecs:us-east-1:123123123123\""
+    },
+    {
+      "code": "ORPHAN_ATTRIBUTE_LINE",
+      "message": "Attribute line \"      floating_attribute_at_end:                       \"myservice\" (forces new resource)\" is not associated with a data source or resource (ignoring)"
+    }
+  ],
+  "changedResources": [
+    {
+      "action": "update",
+      "type": "aws_ecs_service",
+      "name": "sample_app",
+      "changedAttributes": {
+        "unterminated_string": {
+          "new": {
+            "type": "unknown",
+            "value": "\"arn:aws:ecs:us-east-1:123123123123"
+          }
+        },
+        "unterminated_computed": {
+          "new": {
+            "type": "unknown",
+            "value": "<computed"
+          }
+        },
+        "unrecognized_attribute_value": {
+          "new": {
+            "type": "unknown",
+            "value": "<blah"
+          }
+        },
+        "some_value_that_is_not_a_string": {
+          "new": {
+            "type": "unknown",
+            "value": "1234"
+          }
+        }
+      }
+    },
+    {
+      "action": "replace",
+      "type": "aws_ecs_task_definition",
+      "name": "sample_app",
+      "changedAttributes": {
+        "id": {
+          "new": {
+            "type": "string",
+            "value": "myservice"
+          },
+          "forcesNewResource": true
+        }
+      },
+      "newResourceRequired": true
+    }
+  ],
+  "changedDataSources": [
+    {
+      "action": "read",
+      "type": "external",
+      "name": "ecr_image_digests",
+      "changedAttributes": {
+        "attribute-with-no-value": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./work/dist",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "target": "ESNext"
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ]
+}

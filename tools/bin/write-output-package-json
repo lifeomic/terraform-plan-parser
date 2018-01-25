@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+
+const packageJson = fs.readFileSync(path.join(__dirname, '../../package.json'), {encoding: 'utf8'});
+const packageObj = JSON.parse(packageJson);
+
+packageObj.bin['parse-terraform-plan'] = 'node ./cjs/src/cli.js';
+
+delete packageObj.devDependencies;
+
+process.stdout.write(JSON.stringify(packageObj, null, '  '));

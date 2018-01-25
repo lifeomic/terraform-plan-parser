@@ -1,0 +1,10 @@
+{
+  "changedDataSources": [],
+  "changedResources": [],
+  "errors": [
+    {
+      "code": "UNABLE_TO_FIND_ENDING_POSITION_WITHIN_STDOUT",
+      "message": "Did not find magic ending string: \nPlan:"
+    }
+  ]
+}

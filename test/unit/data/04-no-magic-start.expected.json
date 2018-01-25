@@ -1,0 +1,10 @@
+{
+  "changedDataSources": [],
+  "changedResources": [],
+  "errors": [
+    {
+      "code": "UNABLE_TO_FIND_STARTING_POSITION_WITHIN_STDOUT",
+      "message": "Did not find magic starting string: \nTerraform will perform the following actions:\n"
+    }
+  ]
+}

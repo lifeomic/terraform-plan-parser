@@ -1,0 +1,15 @@
+/.git/
+node_modules/
+temp/
+work/
+dist/
+*.log
+*.bak
+*.bak.*
+.npmrc
+.DS_STORE
+dump.rdb
+dist/
+.nyc_output/
+.vscode/
+.nyc_output/

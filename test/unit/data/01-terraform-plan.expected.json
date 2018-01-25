@@ -1,0 +1,168 @@
+{
+  "errors": [],
+  "changedResources": [
+    {
+      "action": "update",
+      "type": "aws_ecs_service",
+      "name": "sample_app",
+      "changedAttributes": {
+        "task_definition": {
+          "old": {
+            "type": "string",
+            "value": "arn:aws:ecs:us-east-1:123123123123:task-definition/sample-app:186"
+          },
+          "new": {
+            "type": "string",
+            "value": "${ aws_ecs_task_definition.sample_app.arn }"
+          }
+        }
+      }
+    },
+    {
+      "action": "replace",
+      "type": "aws_ecs_task_definition",
+      "name": "sample_app",
+      "changedAttributes": {
+        "id": {
+          "old": {
+            "type": "string",
+            "value": "sample-app"
+          },
+          "new": {
+            "type": "computed"
+          },
+          "forcesNewResource": true
+        },
+        "arn": {
+          "old": {
+            "type": "string",
+            "value": "arn:aws:ecs:us-east-1:123123123123:task-definition/sample-app:186"
+          },
+          "new": {
+            "type": "computed"
+          }
+        },
+        "container_definitions": {
+          "old": {
+            "type": "string",
+            "value": "[{\"cpu\":1,\"environment\":[],\"essential\":true,\"image\":\"123123123123.dkr.ecr.us-east-1.amazonaws.com/sample-app@sha256:18979dcf521de65f736585d30b58e8085ecc44560fa8c530ad1eb17fecad1cab\",\"logConfiguration\":{\"logDriver\":\"awslogs\",\"options\":{\"awslogs-group\":\"sample-app\",\"awslogs-region\":\"us-east-1\",\"awslogs-stream-prefix\":\"sample-app\"}},\"memory\":256,\"mountPoints\":[],\"name\":\"sample-app\",\"portMappings\":[{\"containerPort\":8443,\"hostPort\":0,\"protocol\":\"tcp\"}],\"volumesFrom\":[]}]"
+          },
+          "new": {
+            "type": "string",
+            "value": "[\n  {\n    \"name\": \"sample-app\",\n    \"image\": \"${ aws_ecr_repository.sample_app.repository_url }@${ data.external.ecr_image_digests.result[\"sample-app\"] }\",\n    \"cpu\": 1,\n    \"memory\": 256,\n    \"essential\": true,\n    \"logConfiguration\": {\n      \"logDriver\": \"awslogs\",\n      \"options\": {\n        \"awslogs-group\": \"${ aws_cloudwatch_log_group.sample_app.name }\",\n        \"awslogs-region\": \"${ var.target_aws_region }\",\n        \"awslogs-stream-prefix\": \"sample-app\"\n      }\n    },\n    \"portMappings\": [\n      {\n        \"containerPort\": 8443,\n        \"hostPort\": 0\n      }\n    ]\n  }\n]\n"
+          },
+          "forcesNewResource": true
+        },
+        "family": {
+          "old": {
+            "type": "string",
+            "value": "sample-app"
+          },
+          "new": {
+            "type": "string",
+            "value": "sample-app"
+          }
+        },
+        "network_mode": {
+          "old": {
+            "type": "string",
+            "value": ""
+          },
+          "new": {
+            "type": "computed"
+          }
+        },
+        "revision": {
+          "old": {
+            "type": "string",
+            "value": "186"
+          },
+          "new": {
+            "type": "computed"
+          }
+        },
+        "task_role_arn": {
+          "old": {
+            "type": "string",
+            "value": "arn:aws:iam::123123123123:role/SampleApp"
+          },
+          "new": {
+            "type": "string",
+            "value": "arn:aws:iam::123123123123:role/SampleApp"
+          }
+        }
+      },
+      "newResourceRequired": true
+    },
+    {
+      "action": "replace",
+      "type": "null_resource",
+      "name": "promote_images",
+      "changedAttributes": {
+        "id": {
+          "old": {
+            "type": "string",
+            "value": "1236159896537553123"
+          },
+          "new": {
+            "type": "computed"
+          },
+          "forcesNewResource": true
+        },
+        "triggers.%": {
+          "old": {
+            "type": "string",
+            "value": "1"
+          },
+          "new": {
+            "type": "string",
+            "value": "1"
+          }
+        },
+        "triggers.deploy_job_hash": {
+          "old": {
+            "type": "string",
+            "value": "6c37ac7175bdf35e24a2f2755addd238"
+          },
+          "new": {
+            "type": "string",
+            "value": "1a0bd86fc5831ee66858f2e159efa547"
+          },
+          "forcesNewResource": true
+        }
+      },
+      "newResourceRequired": true
+    }
+  ],
+  "changedDataSources": [
+    {
+      "action": "read",
+      "type": "external",
+      "name": "ecr_image_digests",
+      "changedAttributes": {
+        "id": {
+          "new": {
+            "type": "computed"
+          }
+        },
+        "program.#": {
+          "new": {
+            "type": "string",
+            "value": "1"
+          }
+        },
+        "program.0": {
+          "new": {
+            "type": "string",
+            "value": "extract-image-digests"
+          }
+        },
+        "result.%": {
+          "new": {
+            "type": "computed"
+          }
+        }
+      }
+    }
+  ]
+}

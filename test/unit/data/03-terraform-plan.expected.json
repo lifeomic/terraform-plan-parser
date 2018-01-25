@@ -1,0 +1,42 @@
+{
+  "errors": [
+    {
+      "code": "UNABLE_TO_PARSE_LINE",
+      "message": "Unable to parse \"--- aws_ecs_service.this_is_unrecognized\" (ignoring)"
+    }
+  ],
+  "changedResources": [
+    {
+      "action": "create",
+      "type": "aws_ecs_service",
+      "name": "this_is_created",
+      "changedAttributes": {}
+    },
+    {
+      "action": "destroy",
+      "type": "aws_ecs_service",
+      "name": "this_is_destroyed",
+      "changedAttributes": {}
+    },
+    {
+      "action": "replace",
+      "type": "aws_ecs_service",
+      "name": "this_is_replaced",
+      "changedAttributes": {}
+    },
+    {
+      "action": "update",
+      "type": "aws_ecs_service",
+      "name": "this_is_updated",
+      "changedAttributes": {}
+    }
+  ],
+  "changedDataSources": [
+    {
+      "action": "read",
+      "type": "external",
+      "name": "this_is_a_read",
+      "changedAttributes": {}
+    }
+  ]
+}

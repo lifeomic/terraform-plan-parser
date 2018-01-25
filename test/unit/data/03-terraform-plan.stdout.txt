@@ -1,0 +1,16 @@
+
+Terraform will perform the following actions:
+
+ <= data.external.this_is_a_read
+
+  + aws_ecs_service.this_is_created
+
+  - aws_ecs_service.this_is_destroyed
+
+-/+ aws_ecs_service.this_is_replaced
+
+  ~ aws_ecs_service.this_is_updated
+
+--- aws_ecs_service.this_is_unrecognized
+
+Plan: 2 to add, 1 to change, 2 to destroy.

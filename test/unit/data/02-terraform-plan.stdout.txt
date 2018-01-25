@@ -1,0 +1,28 @@
+The line that starts with "Terraform will perform the following actions:" is
+the magic delimiter when parsing content.
+
+Changing anything above the magic "start string" should not cause a problem
+
+Terraform will perform the following actions:
+
+XYZ strange line will be ignored
+
+      floating_attribute_at_start:                       "myservice" (forces new resource)
+
+ <= data.external.ecr_image_digests
+      attribute-with-no-value:
+
+  ~ aws_ecs_service.sample_app
+      unterminated_string:          "arn:aws:ecs:us-east-1:123123123123
+      unterminated_computed:        <computed
+      unrecognized_attribute_value: <blah>
+      some_value_that_is_not_a_string: 1234
+
+-/+ aws_ecs_task_definition.sample_app (new resource required)
+      id:                       "myservice" (forces new resource)
+
+      floating_attribute_at_end:                       "myservice" (forces new resource)
+
+Plan: 2 to add, 1 to change, 2 to destroy. <-- The line that starts with "Plan: " is the magic end string
+
+Changing anything below the magic "end string" should not cause a problem

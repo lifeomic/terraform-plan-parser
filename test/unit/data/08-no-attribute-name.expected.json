@@ -1,0 +1,17 @@
+{
+  "errors": [
+    {
+      "code": "UNABLE_TO_PARSE_ATTRIBUTE_NAME",
+      "message": "Attribute name not found on line \"      task_definition\" (ignored)"
+    }
+  ],
+  "changedResources": [
+    {
+      "action": "update",
+      "type": "aws_ecs_service",
+      "name": "blah",
+      "changedAttributes": {}
+    }
+  ],
+  "changedDataSources": []
+}

@@ -1,0 +1,47 @@
+{
+  "name": "terraform-plan-parser",
+  "version": "1.0.0",
+  "description": "This module provides functionality for parsing stdout from \"terraform plan\" and converting it to JSON that can be more easily analyzed.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lifeomic/terraform-plan-parser.git"
+  },
+  "author": "Phil Gates-Idem <phil.gates-idem@lifeomic.com>",
+  "license": "MIT",
+  "main": "cjs/index.js",
+  "module": "es6/index.es.js",
+  "jsnext:main": "esnext/index.es.js",
+  "typings": "dist/typings/node-entry.d.ts",
+  "bin": {
+    "parse-terraform-plan": "node work/dist/cjs/src/cli.js"
+  },
+  "scripts": {
+    "compile-src-cjs": "tsc -p tsconfig-src-cjs.json",
+    "compile-src-es6": "tsc -p tsconfig-src-es6.json",
+    "compile-src-esnext": "tsc -p tsconfig-src-esnext.json",
+    "compile-src": "rm -rf work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext",
+    "postcompile-src": "./tools/bin/write-output-package-json > ./work/dist/package.json",
+    "compile-test": "rm -rf work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data work/dist-test/test/unit/",
+    "lint": "tslint --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
+    "pretest": "yarn lint && yarn compile-test",
+    "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "yarn bundle",
+    "prepublish-minor": "yarn test && yarn compile-src",
+    "publish-minor": "(cd work/dist; np minor)"
+  },
+  "dependencies": {
+    "strip-ansi": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "ava": "^0.24.0",
+    "coveralls": "^3.0.0",
+    "nyc": "^11.4.1",
+    "proxyquire": "^1.8.0",
+    "resolve": "^1.5.0",
+    "tslint": "^5.9.1",
+    "tslint-config-semistandard": "^7.0.0",
+    "typescript": "^2.6.2"
+  }
+}
