@@ -3,5 +3,5 @@ node_js:
 - "8"
 script:
 - yarn test
-- yarn bundle
+- yarn compile-src
 after_success: yarn coverage
