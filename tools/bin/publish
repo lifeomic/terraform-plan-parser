@@ -1,0 +1,11 @@
+#!/bin/bash
+
+yarn version
+
+./tools/bin/write-output-package-json > ./work/dist/package.json
+
+(
+  cd ./work/dist
+  yarn publish --access public
+)
+

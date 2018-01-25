@@ -1,6 +1,6 @@
 {
   "name": "terraform-plan-parser",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "This module provides functionality for parsing stdout from \"terraform plan\" and converting it to JSON that can be more easily analyzed.",
   "repository": {
     "type": "git",
@@ -20,18 +20,18 @@
     "compile-src-es6": "tsc -p tsconfig-src-es6.json",
     "compile-src-esnext": "tsc -p tsconfig-src-esnext.json",
     "compile-src": "rm -rf work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext && chmod +x work/dist/cjs/src/cli.js",
-    "postcompile-src": "./tools/bin/write-output-package-json > ./work/dist/package.json",
     "compile-test": "rm -rf work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data work/dist-test/test/unit/",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "yarn bundle",
-    "prepublish-minor": "yarn test && yarn compile-src",
-    "publish-patch": "(cd work/dist; np patch --yolo --no-yarn)"
+    "prepublish": "yarn test && yarn compile-src",
+    "publish": "(cd work/dist; np patch --yolo --no-yarn)"
   },
   "dependencies": {
-    "strip-ansi": "^4.0.0"
+    "strip-ansi": "^4.0.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
