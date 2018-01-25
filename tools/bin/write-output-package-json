@@ -6,7 +6,7 @@ const path = require('path');
 const packageJson = fs.readFileSync(path.join(__dirname, '../../package.json'), {encoding: 'utf8'});
 const packageObj = JSON.parse(packageJson);
 
-packageObj.bin['parse-terraform-plan'] = 'node ./cjs/src/cli.js';
+packageObj.bin['parse-terraform-plan'] = './cjs/src/cli.js';
 
 delete packageObj.devDependencies;
 
