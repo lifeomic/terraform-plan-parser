@@ -7,6 +7,11 @@
 This project provides a CLI and JavaScript API for parsing terraform
 plan output.
 
+**IMPORTANT:** This tool does not parse the file produced by the `-out=path`
+argument to `terraform plan` which is a binary file. There is not a stable
+specification for this binary file format so, at this time, it is safer
+to parse the somewhat structured textual output that gets written to `stdout`.
+
 ## Usage
 
 ### JavaScript API
@@ -82,33 +87,33 @@ parse-terraform-plan --pretty -i terraform-plan.stdout -o terraform-plan.json
 
 The output is an object with these top-level properties:
 
-- `errors`: An array of parsing errors
-- `changedResources`: An array of changed resources
-- `changedDataSources`: An array of changed data sources
+- **`errors`:** An array of parsing errors
+- **`changedResources`:** An array of changed resources
+- **`changedDataSources`:** An array of changed data sources
 
 Each _changed resource_ has the following properties:
 
-- `action`: One of `"create"`, `"destroy"`, `"replace"`, `"update"`
-- `type`: Type of resource (e.g. `"aws_ecs_service"`)
-- `name`: Resource name (e.g. `"my_service"`)
-- `changedAttributes`: An object whose keys are an attribute name and value is an object
-- `newResourceRequired`: A flag to indicate if a new resource is required (only present if `true`)
+- **`action`:** One of `"create"`, `"destroy"`, `"replace"`, `"update"`
+- **`type`:** Type of resource (e.g. `"aws_ecs_service"`)
+- **`name`:** Resource name (e.g. `"my_service"`)
+- **`changedAttributes`:** An object whose keys are an attribute name and value is an object
+- **`newResourceRequired`:** A flag to indicate if a new resource is required (only present if `true`)
 
 A _changed attribute_ object has the following properties:
 
-- `old`: An object with `type` property and `value` property which
+- **`old`:** An object with `type` property and `value` property which
   describes the old state of the attribute.
-  The `type` will be `"computed"` or `"string"`. The value will be a string.
-- `new`: An object with `type` property and `value` property which
+  The `type` will be `"computed"` or `"string"`. The `value` will be a string.
+- **`new`:** An object with `type` property and `value` property which
   describes the new state of the attribute.
-  The `type` will be `"computed"` or `"string"`. The value will be a string.
+  The `type` will be `"computed"` or `"string"`. The `value` will be a string.
 
 Each _data source_ has the following properties:
 
-- `action`: The action will always be `"read"`
-- `type`: Type of resource (e.g. `"external"`)
-- `name`: Data source name (e.g. `"ecr_image_digests"`)
-- `changedAttributes`: An object whose keys are an attribute name and value is an object
+- **`action`:** The action will always be `"read"`
+- **`type`:** Type of resource (e.g. `"external"`)
+- **`name`:** Data source name (e.g. `"ecr_image_digests"`)
+- **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 
 ## Example Output
 
