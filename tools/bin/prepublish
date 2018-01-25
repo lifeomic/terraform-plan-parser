@@ -10,4 +10,6 @@ packageObj.bin['parse-terraform-plan'] = './cjs/src/cli.js';
 
 delete packageObj.devDependencies;
 
-process.stdout.write(JSON.stringify(packageObj, null, '  '));
+const json = JSON.stringify(packageObj, null, '  ');
+
+fs.writeFileSync(path.join('../../work/dist/package.json'), json, { encoding: 'utf9' });

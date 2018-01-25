@@ -1,11 +1,18 @@
 #!/bin/bash
 
-yarn version
+# yarn version
 
-./tools/bin/write-output-package-json > ./work/dist/package.json
+yarn test
+
+yarn compile-src
+
+./tools/bin/prepublish
 
 (
   cd ./work/dist
-  yarn publish --access public
+  npm version patch --no-git-tag-version
+  npm publish --access public
 )
+
+./tools/bin/postpublish
 

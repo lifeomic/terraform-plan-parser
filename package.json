@@ -1,6 +1,6 @@
 {
   "name": "terraform-plan-parser",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "This module provides functionality for parsing stdout from \"terraform plan\" and converting it to JSON that can be more easily analyzed.",
   "repository": {
     "type": "git",
@@ -25,9 +25,7 @@
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "yarn bundle",
-    "prepublish": "yarn test && yarn compile-src",
-    "publish": "(cd work/dist; np patch --yolo --no-yarn)"
+    "build": "yarn bundle"
   },
   "dependencies": {
     "strip-ansi": "^4.0.0",
