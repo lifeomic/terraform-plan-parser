@@ -28,7 +28,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "yarn bundle",
     "prepublish-minor": "yarn test && yarn compile-src",
-    "publish-minor": "(cd work/dist; np minor)"
+    "publish-minor": "(cd work/dist; np minor --yolo)"
   },
   "dependencies": {
     "strip-ansi": "^4.0.0"
