@@ -1,5 +1,7 @@
 # Terraform Plan Parser
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lifeomic/terraform-plan-parser.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/lifeomic/terraform-plan-parser.svg?branch=master)](https://travis-ci.org/lifeomic/terraform-plan-parser)
 
 [![Coverage Status](https://coveralls.io/repos/github/lifeomic/terraform-plan-parser/badge.svg?branch=master)](https://coveralls.io/github/lifeomic/terraform-plan-parser?branch=master)
