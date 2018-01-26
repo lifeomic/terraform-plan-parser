@@ -14,6 +14,25 @@ argument to `terraform plan` which is a binary file. There is not a stable
 specification for this binary file format so, at this time, it is safer
 to parse the somewhat structured textual output that gets written to `stdout`.
 
+## Why should I use this?
+
+This parser allows the textual log output from `terraform plan` to be converted
+to JSON which is more machine readable.
+
+Here are some suggested use cases:
+
+- Send notification when certain types of changes are detected.
+  For example, email security team if an IAM policy is modified.
+- Validate that certain changes are allowed for a given _change management_
+  request before invoking `terraform apply`.
+- Kick-off a special workflow for certain types of changes to the
+  infrastructure (possibly, before calling `terraform apply`).
+
+If you wish to perform linting or enforcement of best practices then your
+better option might be to analyze the source terraform code instead of
+only looking at the changes that are described by the `terraform plan`
+output.
+
 ## Usage
 
 ### JavaScript API
