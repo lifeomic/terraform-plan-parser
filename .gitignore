@@ -9,7 +9,7 @@ dist/
 .npmrc
 .DS_STORE
 dump.rdb
-dist/
 .nyc_output/
 .vscode/
 .nyc_output/
+/package-lock.json

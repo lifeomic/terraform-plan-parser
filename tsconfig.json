@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
     "outDir": "./work/dist",
+    "allowSyntheticDefaultImports": false,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
@@ -9,8 +11,12 @@
     "strictFunctionTypes": true,
     "allowJs": true,
     "moduleResolution": "node",
-    "module": "CommonJS",
-    "target": "ESNext"
+    "module": "ES6",
+    "target": "ESNext",
+    "pretty": true,
+    "paths": {
+      "~/*": ["./*"]
+    }
   },
   "include": [
     "src/**/*",

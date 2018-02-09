@@ -50,7 +50,7 @@ Plan: 2 to add, 1 to change, 2 to destroy.
 
 ------------------------------------------------------------------------
 
-This plan was saved to: /Users/philidem/Development/lifeomic/sample-app/work/terraform.plan
+This plan was saved to: terraform.plan
 
 To perform exactly these actions, run the following command to apply:
-    terraform apply "/Users/philidem/Development/lifeomic/sample-app/work/terraform.plan"
+    terraform apply "terraform.plan"

@@ -8,24 +8,27 @@
   },
   "author": "Phil Gates-Idem <phil.gates-idem@lifeomic.com>",
   "license": "MIT",
-  "main": "cjs/index.js",
-  "module": "es6/index.es.js",
-  "jsnext:main": "esnext/index.es.js",
-  "typings": "dist/typings/node-entry.d.ts",
+  "main": "./work/dist/src/",
+  "module": "./work/dist/es6/src/",
+  "jsnext:main": "./work/dist/esnext/src/",
   "bin": {
-    "parse-terraform-plan": "./work/dist/cjs/src/cli.js"
+    "parse-terraform-plan": "./work/dist/src/cli.js"
   },
   "scripts": {
     "compile-src-cjs": "tsc -p tsconfig-src-cjs.json",
     "compile-src-es6": "tsc -p tsconfig-src-es6.json",
     "compile-src-esnext": "tsc -p tsconfig-src-esnext.json",
-    "compile-src": "rm -rf work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext && chmod +x work/dist/cjs/src/cli.js",
-    "compile-test": "rm -rf work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data work/dist-test/test/unit/",
+    "compile-src": "rm -rf ./work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext && chmod +x ./work/dist/src/cli.js",
+    "compile-test": "rm -rf ./work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data ./work/dist-test/test/unit/",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "compile-src"
+    "prebuild": "yarn test",
+    "build": "yarn compile-src && ./tools/bin/postbuild",
+    "publish-patch": "yarn build && ./tools/bin/publish patch",
+    "publish-minor": "yarn build && ./tools/bin/publish minor",
+    "publish-major": "yarn build && ./tools/bin/publish major"
   },
   "dependencies": {
     "strip-ansi": "^4.0.0",
@@ -34,6 +37,7 @@
   "devDependencies": {
     "@types/node": "^9.3.0",
     "ava": "^0.25.0",
+    "chalk": "^2.3.0",
     "coveralls": "^3.0.0",
     "nyc": "^11.4.1",
     "proxyquire": "^1.8.0",
