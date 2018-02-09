@@ -1,7 +1,7 @@
 const stripAnsi = require('strip-ansi');
 import endsWith from './util/endsWith';
 
-enum Action {
+export enum Action {
   CREATE = 'create',
   DESTROY = 'destroy',
   REPLACE = 'replace',
@@ -9,11 +9,11 @@ enum Action {
   READ = 'read'
 }
 
-interface ChangedAttributesMap {
+export interface ChangedAttributesMap {
   [key: string]: ChangedAttribute;
 }
 
-interface Changed {
+export interface Changed {
   action: Action;
   type: string;
   name: string;
@@ -21,24 +21,24 @@ interface Changed {
   newResourceRequired: boolean;
 }
 
-enum AttributeValueType {
+export enum AttributeValueType {
   UNKNOWN = 'unknown',
   STRING = 'string',
   COMPUTED = 'computed'
 }
 
-interface AttributeValue {
+export interface AttributeValue {
   type: AttributeValueType;
   value: string;
 }
 
-interface ChangedAttribute {
+export interface ChangedAttribute {
   new: AttributeValue;
   old: AttributeValue;
   forcesNewResource: boolean;
 }
 
-class ParseError {
+export class ParseError {
   code: String;
   message: String;
 }
@@ -395,4 +395,8 @@ export function parseStdout (logOutput: string): ParseResult {
   }
 
   return result;
+}
+
+export function printResult (result: ParseResult) {
+  console.log(JSON.stringify(result));
 }

@@ -2,19 +2,19 @@ import { promisify } from 'util';
 import test from 'ava';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as parser from '../../src';
+import { parseStdout, ParseResult } from '../../src';
 
 const readFileAsync = promisify(fs.readFile);
 
-function readExpected (dataFile: string): parser.ParseResult {
+function readExpected (dataFile: string): ParseResult {
   const dataObj: any = require(path.join(__dirname,'data', dataFile + '.expected.json'));
-  return dataObj as parser.ParseResult;
+  return dataObj as ParseResult;
 }
 
-async function readActual (dataFile: string): Promise<parser.ParseResult> {
+async function readActual (dataFile: string): Promise<ParseResult> {
   const stdout = await readFileAsync(path.join(__dirname, 'data', dataFile + '.stdout.txt'),
     { encoding: 'utf8' });
-  return parser.parseStdout(stdout);
+  return parseStdout(stdout);
 }
 
 async function runTest (dataName: string, t: any) {

@@ -34,7 +34,7 @@ exports.spawn = async function (command, args, options) {
 exports.chalk = require('chalk');
 
 exports.writeJsonFile = async (file, obj) => {
-  return writeFile(file, JSON.stringify(obj, null, '  '), { encoding: 'utf8' });
+  return writeFile(file, JSON.stringify(obj, null, '  ') + '\n', { encoding: 'utf8' });
 };
 
 exports.readJsonFile = async (file) => {
