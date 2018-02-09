@@ -396,7 +396,3 @@ export function parseStdout (logOutput: string): ParseResult {
 
   return result;
 }
-
-export function printResult (result: ParseResult) {
-  console.log(JSON.stringify(result));
-}
