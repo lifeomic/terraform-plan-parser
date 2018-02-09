@@ -20,7 +20,7 @@
     "compile-src-esnext": "tsc -p tsconfig-src-esnext.json",
     "compile-src": "rm -rf ./work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext && chmod +x ./work/dist/src/cli.js",
     "compile-test": "rm -rf ./work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data ./work/dist-test/test/unit/",
-    "lint": "tslint --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "tslint --format codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
