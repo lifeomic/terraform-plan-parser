@@ -1,6 +1,6 @@
 {
   "name": "terraform-plan-parser",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "This module provides functionality for parsing stdout from \"terraform plan\" and converting it to JSON that can be more easily analyzed.",
   "repository": {
     "type": "git",
@@ -11,18 +11,23 @@
   "main": "./work/dist/src/",
   "module": "./work/dist/es6/src/",
   "jsnext:main": "./work/dist/esnext/src/",
+  "types": "./work/dist/src/index.d.ts",
   "bin": {
     "parse-terraform-plan": "./work/dist/src/cli.js"
   },
   "scripts": {
-    "compile-src-cjs": "tsc -p tsconfig-src-cjs.json",
+    "compile-src-cjs": "tsc --declaration --declarationDir ./work/dist -p tsconfig-src-cjs.json",
     "compile-src-es6": "tsc -p tsconfig-src-es6.json",
     "compile-src-esnext": "tsc -p tsconfig-src-esnext.json",
-    "compile-src": "rm -rf ./work/dist && yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext && chmod +x ./work/dist/src/cli.js",
-    "compile-test": "rm -rf ./work/dist-test && tsc -p tsconfig-test.json && cp -r test/unit/data ./work/dist-test/test/unit/",
+    "precompile-src": "rm -rf ./work/dist",
+    "compile-src": "yarn compile-src-cjs && yarn compile-src-es6 && yarn compile-src-esnext",
+    "transpile-test-js": "BABEL_ENV=test babel work/dist-test --out-dir work/dist-test --source-maps",
+    "precompile-test": "rm -rf ./work/dist-test",
+    "compile-test": "tsc -p tsconfig-test.json && yarn transpile-test-js",
+    "postcompile-test": "cp -r test/unit/data ./work/dist-test/test/unit/",
     "lint": "tslint --format codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
-    "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
+    "test": "BABEL_ENV=test nyc ava 'work/dist-test/test/**/*.test.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "prebuild": "yarn test",
     "build": "yarn compile-src && ./tools/bin/postbuild",
@@ -35,15 +40,25 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "@types/node": "^9.3.0",
+    "@types/node": "^9.4.6",
     "ava": "^0.25.0",
-    "chalk": "^2.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^4.1.5",
+    "chalk": "^2.3.1",
     "coveralls": "^3.0.0",
     "nyc": "^11.4.1",
     "proxyquire": "^1.8.0",
-    "resolve": "^1.5.0",
     "tslint": "^5.9.1",
     "tslint-config-semistandard": "^7.0.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.7.2"
+  },
+  "ava": {
+    "require": [
+      "source-map-support/register"
+    ]
+  },
+  "nyc": {
+    "sourceMap": false,
+    "instrument": false
   }
 }

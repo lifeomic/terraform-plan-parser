@@ -31,24 +31,17 @@ function rewritePackageJsonPaths (obj, keys) {
 }
 
 async function run () {
-  await spawn('cp', ['-r', 'LICENSE', 'index.d.ts', 'src', `${DIST_DIR}/`], { cwd: ROOT_DIR });
+  await spawn('cp', ['-r', 'LICENSE', 'src', `${DIST_DIR}/`], { cwd: ROOT_DIR });
 
   const packageObj = await readJsonFile(ROOT_PACKAGE_JSON_FILE);
-
-  // Remove some properties that we don't need from package.json
-  for (const key of [
-    'devDependencies',
-    'scripts'
-  ]) {
-    delete packageObj[key];
-  }
 
   // Fix some of the paths
   rewritePackageJsonPaths(packageObj.bin);
   rewritePackageJsonPaths(packageObj, [
     'main',
     'module',
-    'jsnext:main'
+    'jsnext:main',
+    'types'
   ]);
 
   await writeJsonFile(DIST_PACKAGE_JSON_FILE, packageObj);

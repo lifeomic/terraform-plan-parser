@@ -1,10 +1,6 @@
 # Terraform Plan Parser
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/lifeomic/terraform-plan-parser.svg)](https://greenkeeper.io/)
-
-[![Build Status](https://travis-ci.org/lifeomic/terraform-plan-parser.svg?branch=master)](https://travis-ci.org/lifeomic/terraform-plan-parser)
-
-[![Coverage Status](https://coveralls.io/repos/github/lifeomic/terraform-plan-parser/badge.svg?branch=master)](https://coveralls.io/github/lifeomic/terraform-plan-parser?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/lifeomic/terraform-plan-parser.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.org/lifeomic/terraform-plan-parser.svg?branch=master)](https://travis-ci.org/lifeomic/terraform-plan-parser) [![Coverage Status](https://coveralls.io/repos/github/lifeomic/terraform-plan-parser/badge.svg?branch=master)](https://coveralls.io/github/lifeomic/terraform-plan-parser?branch=master) [![npm version](https://badge.fury.io/js/terraform-plan-parser.svg)](https://badge.fury.io/js/terraform-plan-parser)
 
 This project provides a CLI and JavaScript API for parsing terraform
 plan output.
@@ -48,6 +44,16 @@ npm install terraform-plan-parser
 ```bash
 yarn add terraform-plan-parser
 ```
+
+**IMPORTANT:**
+
+This project requires [Node v8.9.0 (LTS)](https://nodejs.org/en/blog/release/v8.9.0/)
+or newer because the source code utilizes language features such as
+`async` / `await`. If you are using an unsupported version of Node then you
+will see `SyntaxError: Unexpected token function`. It's possible to use
+`babel` to transpile the code for older versions of the Node runtime.
+The [babel-preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env)
+is a good package for supporting this.
 
 ### Parse string that contains stdout logs from terraform plan
 
