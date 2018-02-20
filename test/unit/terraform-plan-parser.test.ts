@@ -58,3 +58,7 @@ test('should ignore invalid resource action line', async (t) => {
 test('should ignore attribute with missing name', async (t) => {
   return runTest('08-no-attribute-name', t);
 });
+
+test('should handle plan output with Windows line terminator', async (t) => {
+  return runTest('09-terraform-plan-windows-line-end', t);
+});

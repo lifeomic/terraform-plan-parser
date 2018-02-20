@@ -328,7 +328,7 @@ function parseAttributeLine (line: string, lastChange: Changed, errors: Array<Pa
 }
 
 export function parseStdout (logOutput: string): ParseResult {
-  logOutput = stripAnsi(logOutput);
+  logOutput = stripAnsi(logOutput).replace(/\r\n/g, '\n');
 
   const result = {} as ParseResult;
   result.errors = [];
