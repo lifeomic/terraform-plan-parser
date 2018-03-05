@@ -1,0 +1,30 @@
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
++ aws_iam_role.terraform_demo
+      id:                    <computed>
+      arn:                   <computed>
+      assume_role_policy:    "{\n \"Version\": \"2012-10-17\",\n \"Statement\": [\n   {\n     \"Action\": \"sts:AssumeRole\",\n     \"Principal\": {\n       \"Service\": \"ec2.amazonaws.com\"\n     },\n     \"Effect\": \"Allow\",\n     \"Sid\": \"\"\n   }\n ]\n}\n"
+      create_date:           <computed>
+      description:           "test IAM role"
+      force_detach_policies: "false"
+      name:                  "terraform_demo"
+      path:                  "/"
+      unique_id:             <computed>
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+This plan was saved to: xxx/iam/terraform.tfstate.d/default/terraform.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "xxx/iam/terraform.tfstate.d/default/terraform.tfplan"

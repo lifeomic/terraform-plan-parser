@@ -1,0 +1,63 @@
+{
+  "errors": [],
+  "changedResources": [
+    {
+      "action": "create",
+      "type": "s_iam_role",
+      "name": "terraform_demo",
+      "changedAttributes": {
+        "id": {
+          "new": {
+            "type": "computed"
+          }
+        },
+        "arn": {
+          "new": {
+            "type": "computed"
+          }
+        },
+        "assume_role_policy": {
+          "new": {
+            "type": "string",
+            "value": "{\n \"Version\": \"2012-10-17\",\n \"Statement\": [\n   {\n     \"Action\": \"sts:AssumeRole\",\n     \"Principal\": {\n       \"Service\": \"ec2.amazonaws.com\"\n     },\n     \"Effect\": \"Allow\",\n     \"Sid\": \"\"\n   }\n ]\n}\n"
+          }
+        },
+        "create_date": {
+          "new": {
+            "type": "computed"
+          }
+        },
+        "description": {
+          "new": {
+            "type": "string",
+            "value": "test IAM role"
+          }
+        },
+        "force_detach_policies": {
+          "new": {
+            "type": "string",
+            "value": "false"
+          }
+        },
+        "name": {
+          "new": {
+            "type": "string",
+            "value": "terraform_demo"
+          }
+        },
+        "path": {
+          "new": {
+            "type": "string",
+            "value": "/"
+          }
+        },
+        "unique_id": {
+          "new": {
+            "type": "computed"
+          }
+        }
+      }
+    }
+  ],
+  "changedDataSources": []
+}

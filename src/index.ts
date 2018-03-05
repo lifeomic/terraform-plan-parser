@@ -83,13 +83,11 @@ interface ActionMapping {
 
 const ACTION_MAPPING: ActionMapping = {};
 
-ACTION_MAPPING['  +'] = Action.CREATE;
-ACTION_MAPPING['  +'] = Action.CREATE;
-ACTION_MAPPING['  -'] = Action.DESTROY;
+ACTION_MAPPING['+'] = Action.CREATE;
+ACTION_MAPPING['-'] = Action.DESTROY;
 ACTION_MAPPING['-/+'] = Action.REPLACE;
-ACTION_MAPPING['  ~'] = Action.UPDATE;
-ACTION_MAPPING[' <='] = Action.READ;
-ACTION_MAPPING[' <='] = Action.READ;
+ACTION_MAPPING['~'] = Action.UPDATE;
+ACTION_MAPPING['<='] = Action.READ;
 
 const ACTION_LINE_REGEX = /(data\.)?([^.]+)\.([^ ]+)( \(new resource required\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
@@ -366,7 +364,12 @@ export function parseStdout (logOutput: string): ParseResult {
       continue;
     }
 
-    const possibleActionSymbol = line.substring(0, 3);
+    let possibleActionSymbol = line.substring(0, 3).trim();
+    const spacePos = possibleActionSymbol.lastIndexOf(' ');
+    if (spacePos !== -1) {
+      possibleActionSymbol = possibleActionSymbol.substring(0, spacePos);
+    }
+
     const action = ACTION_MAPPING[possibleActionSymbol];
 
     if (action) {

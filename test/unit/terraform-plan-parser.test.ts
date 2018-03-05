@@ -62,3 +62,7 @@ test('should ignore attribute with missing name', async (t) => {
 test('should handle plan output with Windows line terminator', async (t) => {
   return runTest('09-terraform-plan-windows-line-end', t);
 });
+
+test('should handle sample provided in issue #4', async (t) => {
+  return runTest('10-issue-4', t);
+});
