@@ -109,10 +109,10 @@ const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
  * @param result an object that collects changed data sources, changed resources, and errors
  * @return an object that identifies a changed resource or data sources
  */
-function parseActionLine (line: string, action: Action, result: ParseResult): Changed | null {
+function parseActionLine (offset: number, line: string, action: Action, result: ParseResult): Changed | null {
   // start position is after the action symbol
   // For example, we move past "-/+ " (4 characters)
-  const match = ACTION_LINE_REGEX.exec(line.substring(4));
+  const match = ACTION_LINE_REGEX.exec(line.substring(offset));
   if (!match) {
     result.errors.push({
       code: 'UNABLE_TO_PARSE_CHANGE_LINE',
@@ -364,9 +364,17 @@ export function parseStdout (logOutput: string): ParseResult {
       continue;
     }
 
+    let offset;
     let possibleActionSymbol = line.substring(0, 3).trim();
     const spacePos = possibleActionSymbol.lastIndexOf(' ');
-    if (spacePos !== -1) {
+    if (spacePos === -1) {
+      // action line is something like:
+      // "-/+ aws_ecs_task_definition.sample_app (new resource required)"
+      offset = 4;
+    } else {
+      // action line is something like:
+      // "+ aws_iam_role.terraform_demo"
+      offset = spacePos + 1;
       possibleActionSymbol = possibleActionSymbol.substring(0, spacePos);
     }
 
@@ -376,7 +384,7 @@ export function parseStdout (logOutput: string): ParseResult {
       // line starts with an action symbol so it will be followed by
       // something like "data.external.ecr_image_digests"
       // or "aws_ecs_task_definition.sample_app (new resource required)"
-      lastChange = parseActionLine(line, action, result);
+      lastChange = parseActionLine(offset, line, action, result);
     } else if (ATTRIBUTE_LINE_REGEX.test(line)) {
       if (lastChange) {
         parseAttributeLine(line, lastChange, result.errors);

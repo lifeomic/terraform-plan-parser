@@ -3,7 +3,7 @@
   "changedResources": [
     {
       "action": "create",
-      "type": "s_iam_role",
+      "type": "aws_iam_role",
       "name": "terraform_demo",
       "changedAttributes": {
         "id": {
