@@ -1,0 +1,21 @@
+{
+  "errors": [],
+  "changedResources": [
+    {
+      "action": "replace",
+      "type": "aws_ecs_task_definition",
+      "name": "sample_app",
+      "changedAttributes": {
+        "id": {
+          "new": {
+            "type": "string",
+            "value": "myservice"
+          },
+          "forcesNewResource": true
+        }
+      },
+      "newResourceRequired": true
+    }
+  ],
+  "changedDataSources": []
+}

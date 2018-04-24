@@ -89,7 +89,7 @@ ACTION_MAPPING['-/+'] = Action.REPLACE;
 ACTION_MAPPING['~'] = Action.UPDATE;
 ACTION_MAPPING['<='] = Action.READ;
 
-const ACTION_LINE_REGEX = /(data\.)?([^.]+)\.([^ ]+)( \(new resource required\))?$/;
+const ACTION_LINE_REGEX = /(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
 
 /**
@@ -121,7 +121,7 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     return null;
   }
 
-  const [, dataSourceStr, type, name, newResourceRequiredStr] = match;
+  const [, dataSourceStr, type, name, , newResourceRequiredStr] = match;
   let change;
   change = {
     action: action,
