@@ -1,0 +1,7 @@
+
+Terraform will perform the following actions:
+
+-/+ aws_ecs_task_definition.sample_app (tainted) (new resource required)
+      id:                       "myservice" (forces new resource)
+
+Plan: 1 to add, 0 to change, 1 to destroy.

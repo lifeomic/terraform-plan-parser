@@ -66,3 +66,7 @@ test('should handle plan output with Windows line terminator', async (t) => {
 test('should handle sample provided in issue #4', async (t) => {
   return runTest('10-issue-4', t);
 });
+
+test('should handle tainted resources', async (t) => {
+  return runTest('11-tainted-resource', t);
+});
