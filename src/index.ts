@@ -19,6 +19,7 @@ export interface Changed {
   name: string;
   changedAttributes: ChangedAttributesMap;
   newResourceRequired: boolean;
+  tainted: boolean;
 }
 
 export enum AttributeValueType {
@@ -121,7 +122,8 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     return null;
   }
 
-  const [, dataSourceStr, type, name, , newResourceRequiredStr] = match;
+  const [, dataSourceStr, type, name, taintedStr, newResourceRequiredStr] = match;
+
   let change;
   change = {
     action: action,
@@ -129,6 +131,10 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     name: name,
     changedAttributes: {}
   } as Changed;
+
+  if (taintedStr === ' (tainted)') {
+    change.tainted = true;
+  }
 
   if (dataSourceStr) {
     result.changedDataSources.push(change);

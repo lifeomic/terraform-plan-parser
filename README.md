@@ -125,6 +125,7 @@ Each _changed resource_ has the following properties:
 - **`name`:** Resource name (e.g. `"my_service"`)
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 - **`newResourceRequired`:** A flag to indicate if a new resource is required (only present if `true`)
+- **`tainted`:** A flag to indicate if resource is tainted (only present if `true`)
 
 A _changed attribute_ object has the following properties:
 

@@ -5,6 +5,7 @@
       "action": "replace",
       "type": "aws_ecs_task_definition",
       "name": "sample_app",
+      "tainted": true,
       "changedAttributes": {
         "id": {
           "new": {
