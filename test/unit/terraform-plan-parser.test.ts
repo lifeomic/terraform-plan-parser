@@ -70,3 +70,7 @@ test('should handle sample provided in issue #4', async (t) => {
 test('should handle tainted resources', async (t) => {
   return runTest('11-tainted-resource', t);
 });
+
+test('should handle modules', async (t) => {
+  return runTest('12-modules', t);
+});
