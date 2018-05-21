@@ -91,25 +91,15 @@ ACTION_MAPPING['-/+'] = Action.REPLACE;
 ACTION_MAPPING['~'] = Action.UPDATE;
 ACTION_MAPPING['<='] = Action.READ;
 
-const ACTION_LINE_REGEX = /()?(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
-const MODULE_LINE_REGEX = /(?:(?<=module\.)(\w+)\.(?!module))(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
+const ACTION_LINE_REGEX = /((?:module\.\w+\.)*)(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
 
-/**
- * Parses resource description and detects modules
- * @param resource resource line with offset cut
- * @returns an array of resource description
- */
-function parseResourceModule (resource: string): RegExpExecArray | null {
-  let match;
+function parseModulePath (rawModuleStr: string) {
+  // remove the trailing "."
+  rawModuleStr = rawModuleStr.substring(0, rawModuleStr.length - 1);
 
-  if (resource.startsWith('module')) {
-    match = MODULE_LINE_REGEX.exec(resource);
-  } else {
-    match = ACTION_LINE_REGEX.exec(resource);
-  }
-
-  return match;
+  // Convert something like "module.test1.module.test2" to "test1.test2"
+  return rawModuleStr.split(/\.?module./).slice(1).join('.');
 }
 
 /**
@@ -132,9 +122,7 @@ function parseResourceModule (resource: string): RegExpExecArray | null {
 function parseActionLine (offset: number, line: string, action: Action, result: ParseResult): Changed | null {
   // start position is after the action symbol
   // For example, we move past "-/+ " (4 characters)
-  const resource = line.substring(offset);
-
-  const match = parseResourceModule(resource);
+  const match = ACTION_LINE_REGEX.exec(line.substring(offset));
 
   if (!match) {
     result.errors.push({
@@ -155,7 +143,7 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
   } as Changed;
 
   if (module) {
-    change.module = module;
+    change.module = parseModulePath(module);
   }
 
   if (taintedStr === ' (tainted)') {

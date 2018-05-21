@@ -52,7 +52,7 @@
     },
     {
       "action": "create",
-      "module": "test2",
+      "module": "test1.test2",
       "type": "null_resource",
       "name": "test2",
       "changedAttributes": {

@@ -124,6 +124,7 @@ Each _changed resource_ has the following properties:
 - **`module`:** Name of a module that contains a resource (only present when module is not `root`)
 - **`type`:** Type of resource (e.g. `"aws_ecs_service"`)
 - **`name`:** Resource name (e.g. `"my_service"`)
+- **`module`:** Fully qualified module name (e.g. `"module1.module2"`) or `undefined` if resource not within module.
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 - **`newResourceRequired`:** A flag to indicate if a new resource is required (only present if `true`)
 - **`tainted`:** A flag to indicate if resource is tainted (only present if `true`)
@@ -142,6 +143,7 @@ Each _data source_ has the following properties:
 - **`action`:** The action will always be `"read"`
 - **`type`:** Type of resource (e.g. `"external"`)
 - **`name`:** Data source name (e.g. `"ecr_image_digests"`)
+- **`module`:** Fully qualified module name (e.g. `"module1.module2"`) or `undefined` if data source not within module.
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 
 ## Example Output
