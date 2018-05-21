@@ -1,6 +1,6 @@
 {
   "name": "terraform-plan-parser",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "This module provides functionality for parsing stdout from \"terraform plan\" and converting it to JSON that can be more easily analyzed.",
   "repository": {
     "type": "git",
