@@ -14,6 +14,7 @@ export interface ChangedAttributesMap {
 }
 
 export interface Changed {
+  module: string;
   action: Action;
   type: string;
   name: string;
@@ -90,8 +91,26 @@ ACTION_MAPPING['-/+'] = Action.REPLACE;
 ACTION_MAPPING['~'] = Action.UPDATE;
 ACTION_MAPPING['<='] = Action.READ;
 
-const ACTION_LINE_REGEX = /(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
+const ACTION_LINE_REGEX = /()?(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
+const MODULE_LINE_REGEX = /(?:(?<=module\.)(\w+)\.(?!module))(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
+
+/**
+ * Parses resource description and detects modules
+ * @param resource resource line with offset cut
+ * @returns an array of resource description
+ */
+function parseResourceModule (resource: string): RegExpExecArray | null {
+  let match;
+
+  if (resource.startsWith('module')) {
+    match = MODULE_LINE_REGEX.exec(resource);
+  } else {
+    match = ACTION_LINE_REGEX.exec(resource);
+  }
+
+  return match;
+}
 
 /**
  * Parse a line that looks similar to a resource or data source.
@@ -113,7 +132,10 @@ const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
 function parseActionLine (offset: number, line: string, action: Action, result: ParseResult): Changed | null {
   // start position is after the action symbol
   // For example, we move past "-/+ " (4 characters)
-  const match = ACTION_LINE_REGEX.exec(line.substring(offset));
+  const resource = line.substring(offset);
+
+  const match = parseResourceModule(resource);
+
   if (!match) {
     result.errors.push({
       code: 'UNABLE_TO_PARSE_CHANGE_LINE',
@@ -122,7 +144,7 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     return null;
   }
 
-  const [, dataSourceStr, type, name, taintedStr, newResourceRequiredStr] = match;
+  const [, module, dataSourceStr, type, name, taintedStr, newResourceRequiredStr] = match;
 
   let change;
   change = {
@@ -131,6 +153,10 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     name: name,
     changedAttributes: {}
   } as Changed;
+
+  if (module) {
+    change.module = module;
+  }
 
   if (taintedStr === ' (tainted)') {
     change.tainted = true;

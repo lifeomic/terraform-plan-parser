@@ -121,6 +121,7 @@ The output is an object with these top-level properties:
 Each _changed resource_ has the following properties:
 
 - **`action`:** One of `"create"`, `"destroy"`, `"replace"`, `"update"`
+- **`module`:** Name of a module that contains a resource (only present when module is not `root`)
 - **`type`:** Type of resource (e.g. `"aws_ecs_service"`)
 - **`name`:** Resource name (e.g. `"my_service"`)
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
