@@ -5,6 +5,7 @@
       "action": "create",
       "type": "null_resource",
       "name": "test0",
+      "path": "null_resource.test0",
       "changedAttributes": {
         "id": {
           "new": {
@@ -30,6 +31,7 @@
       "module": "test1",
       "type": "null_resource",
       "name": "test1",
+      "path": "module.test1.null_resource.test1",
       "changedAttributes": {
         "id": {
           "new": {
@@ -55,6 +57,7 @@
       "module": "test1.test2",
       "type": "null_resource",
       "name": "test2",
+      "path": "module.test1.module.test2.null_resource.test2",
       "changedAttributes": {
         "id": {
           "new": {

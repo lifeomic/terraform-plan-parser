@@ -10,24 +10,28 @@
       "action": "create",
       "type": "aws_ecs_service",
       "name": "this_is_created",
+      "path": "aws_ecs_service.this_is_created",
       "changedAttributes": {}
     },
     {
       "action": "destroy",
       "type": "aws_ecs_service",
       "name": "this_is_destroyed",
+      "path": "aws_ecs_service.this_is_destroyed",
       "changedAttributes": {}
     },
     {
       "action": "replace",
       "type": "aws_ecs_service",
       "name": "this_is_replaced",
+      "path": "aws_ecs_service.this_is_replaced",
       "changedAttributes": {}
     },
     {
       "action": "update",
       "type": "aws_ecs_service",
       "name": "this_is_updated",
+      "path": "aws_ecs_service.this_is_updated",
       "changedAttributes": {}
     }
   ],
@@ -36,6 +40,7 @@
       "action": "read",
       "type": "external",
       "name": "this_is_a_read",
+      "path": "data.external.this_is_a_read",
       "changedAttributes": {}
     }
   ]

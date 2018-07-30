@@ -5,6 +5,7 @@
       "action": "update",
       "type": "aws_ecs_service",
       "name": "sample_app",
+      "path": "aws_ecs_service.sample_app",
       "changedAttributes": {
         "task_definition": {
           "old": {
@@ -22,6 +23,7 @@
       "action": "replace",
       "type": "aws_ecs_task_definition",
       "name": "sample_app",
+      "path": "aws_ecs_task_definition.sample_app",
       "changedAttributes": {
         "id": {
           "old": {
@@ -98,6 +100,7 @@
       "action": "replace",
       "type": "null_resource",
       "name": "promote_images",
+      "path": "null_resource.promote_images",
       "changedAttributes": {
         "id": {
           "old": {
@@ -139,6 +142,7 @@
       "action": "read",
       "type": "external",
       "name": "ecr_image_digests",
+      "path": "data.external.ecr_image_digests",
       "changedAttributes": {
         "id": {
           "new": {
