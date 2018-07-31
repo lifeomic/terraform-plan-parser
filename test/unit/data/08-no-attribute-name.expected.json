@@ -10,6 +10,7 @@
       "action": "update",
       "type": "aws_ecs_service",
       "name": "blah",
+      "path": "aws_ecs_service.blah",
       "changedAttributes": {}
     }
   ],

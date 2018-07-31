@@ -22,6 +22,7 @@
       "action": "update",
       "type": "aws_ecs_service",
       "name": "sample_app",
+      "path": "aws_ecs_service.sample_app",
       "changedAttributes": {
         "unterminated_string": {
           "new": {
@@ -53,6 +54,7 @@
       "action": "replace",
       "type": "aws_ecs_task_definition",
       "name": "sample_app",
+      "path": "aws_ecs_task_definition.sample_app",
       "changedAttributes": {
         "id": {
           "new": {
@@ -70,6 +72,7 @@
       "action": "read",
       "type": "external",
       "name": "ecr_image_digests",
+      "path": "data.external.ecr_image_digests",
       "changedAttributes": {
         "attribute-with-no-value": {}
       }

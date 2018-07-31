@@ -121,9 +121,9 @@ The output is an object with these top-level properties:
 Each _changed resource_ has the following properties:
 
 - **`action`:** One of `"create"`, `"destroy"`, `"replace"`, `"update"`
-- **`module`:** Name of a module that contains a resource (only present when module is not `root`)
 - **`type`:** Type of resource (e.g. `"aws_ecs_service"`)
 - **`name`:** Resource name (e.g. `"my_service"`)
+- **`path`:** Full path to resource as printed in plan output (e.g. `"module.module1.module.module2.aws_ecs_service.my_service"`)
 - **`module`:** Fully qualified module name (e.g. `"module1.module2"`) or `undefined` if resource not within module.
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 - **`newResourceRequired`:** A flag to indicate if a new resource is required (only present if `true`)
@@ -143,6 +143,7 @@ Each _data source_ has the following properties:
 - **`action`:** The action will always be `"read"`
 - **`type`:** Type of resource (e.g. `"external"`)
 - **`name`:** Data source name (e.g. `"ecr_image_digests"`)
+- **`path`:** Full path to data source as printed in plan output (e.g. `"module.module1.module.module2.data.external.ecr_image_digests"`)
 - **`module`:** Fully qualified module name (e.g. `"module1.module2"`) or `undefined` if data source not within module.
 - **`changedAttributes`:** An object whose keys are an attribute name and value is an object
 
@@ -156,6 +157,7 @@ Each _data source_ has the following properties:
       "action": "update",
       "type": "aws_ecs_service",
       "name": "sample_app",
+      "path": "aws_ecs_service.sample_app",
       "changedAttributes": {
         "task_definition": {
           "old": {
@@ -175,6 +177,7 @@ Each _data source_ has the following properties:
       "action": "read",
       "type": "external",
       "name": "ecr_image_digests",
+      "path": "data.external.ecr_image_digests",
       "changedAttributes": {
         "id": {
           "new": {

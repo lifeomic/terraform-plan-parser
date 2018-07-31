@@ -5,6 +5,7 @@
       "action": "create",
       "type": "aws_iam_role",
       "name": "terraform_demo",
+      "path": "aws_iam_role.terraform_demo",
       "changedAttributes": {
         "id": {
           "new": {

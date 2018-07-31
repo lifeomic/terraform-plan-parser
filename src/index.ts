@@ -18,6 +18,7 @@ export interface Changed {
   action: Action;
   type: string;
   name: string;
+  path: string;
   changedAttributes: ChangedAttributesMap;
   newResourceRequired: boolean;
   tainted: boolean;
@@ -91,14 +92,11 @@ ACTION_MAPPING['-/+'] = Action.REPLACE;
 ACTION_MAPPING['~'] = Action.UPDATE;
 ACTION_MAPPING['<='] = Action.READ;
 
-const ACTION_LINE_REGEX = /((?:module\.\w+\.)*)(data\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
+const ACTION_LINE_REGEX = /^(?:((?:.*\.)?module\.[^.]*)\.)?(?:(data)\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
 
+// Convert something like "module.test1.module.test2" to "test1.test2"
 function parseModulePath (rawModuleStr: string) {
-  // remove the trailing "."
-  rawModuleStr = rawModuleStr.substring(0, rawModuleStr.length - 1);
-
-  // Convert something like "module.test1.module.test2" to "test1.test2"
   return rawModuleStr.split(/\.?module./).slice(1).join('.');
 }
 
@@ -133,12 +131,15 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
   }
 
   const [, module, dataSourceStr, type, name, taintedStr, newResourceRequiredStr] = match;
+  const fullyQualifiedPath = [module, dataSourceStr, type, name].filter(str =>
+    str && str.length > 0).join('.');
 
   let change;
   change = {
     action: action,
     type: type,
     name: name,
+    path: fullyQualifiedPath,
     changedAttributes: {}
   } as Changed;
 
