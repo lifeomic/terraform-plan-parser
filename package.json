@@ -36,7 +36,7 @@
     "publish-major": "yarn build && ./tools/bin/publish major"
   },
   "dependencies": {
-    "strip-ansi": "^4.0.0",
+    "strip-ansi": "^5.0.0",
     "yargs": "^12.0.1"
   },
   "devDependencies": {
