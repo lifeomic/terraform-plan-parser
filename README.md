@@ -58,7 +58,9 @@ is a good package for supporting this.
 ### Parse string that contains stdout logs from terraform plan
 
 ```javascript
+const fs = require('fs');
 const parser = require('terraform-plan-parser');
+
 const stdout = fs.readFileSync('terraform-plan.stdout', {encoding: 'utf8'});
 const result = parser.parseStdout(stdout);
 ```
