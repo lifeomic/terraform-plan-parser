@@ -11,14 +11,20 @@ function readExpected (dataFile: string): ParseResult {
   return dataObj as ParseResult;
 }
 
-async function readActual (dataFile: string): Promise<ParseResult> {
+async function readActual (dataFile: string, clean: boolean): Promise<ParseResult> {
   const stdout = await readFileAsync(path.join(__dirname, 'data', dataFile + '.stdout.txt'),
     { encoding: 'utf8' });
-  return parseStdout(stdout);
+  return parseStdout(stdout, clean);
+}
+
+async function runCleanTest (dataName: string, t: any) {
+  const actual = await readActual(dataName, true);
+  const expected = readExpected(dataName);
+  t.deepEqual(actual, expected);
 }
 
 async function runTest (dataName: string, t: any) {
-  const actual = await readActual(dataName);
+  const actual = await readActual(dataName, false);
   const expected = readExpected(dataName);
   t.deepEqual(actual, expected);
 }
@@ -77,4 +83,8 @@ test('should handle modules', async (t) => {
 
 test('should handle no changes', async (t) => {
   return runTest('13-no-changes', t);
+});
+
+test('should handle cleaned input', async (t) => {
+  return runCleanTest('13-cleaned-input', t);
 });

@@ -347,7 +347,7 @@ function parseAttributeLine (line: string, lastChange: Changed, errors: Array<Pa
   lastChange.changedAttributes[name] = result;
 }
 
-export function parseStdout (logOutput: string): ParseResult {
+export function parseStdout (logOutput: string, clean: boolean): ParseResult {
   logOutput = stripAnsi(logOutput).replace(/\r\n/g, '\n');
 
   const result = {} as ParseResult;
@@ -362,7 +362,10 @@ export function parseStdout (logOutput: string): ParseResult {
     return result;
   }
 
-  const startPos = findParseableContentStartPos(logOutput);
+  const startPos = clean
+    ? 0
+    : findParseableContentStartPos(logOutput);
+
   if (startPos === -1) {
     result.errors.push({
       code: 'UNABLE_TO_FIND_STARTING_POSITION_WITHIN_STDOUT',
@@ -371,7 +374,9 @@ export function parseStdout (logOutput: string): ParseResult {
     return result;
   }
 
-  const endPos = findParseableContentEndPos(logOutput, startPos);
+  const endPos = clean
+    ? logOutput.length
+    : findParseableContentEndPos(logOutput, startPos);
 
   if (endPos === -1) {
     result.errors.push({

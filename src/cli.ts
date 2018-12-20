@@ -40,6 +40,12 @@ async function run () {
         describe: 'Output file (stdout is used if not provided)',
         type: 'string'
     })
+    .option('c', {
+        alias: 'clean',
+        describe: 'Input data is already cleaned (such as that of terraform show)',
+        type: 'boolean',
+        default: false
+    })
     .option('pretty', {
         describe: 'Output JSON in pretty format',
         type: 'boolean',
@@ -54,8 +60,8 @@ async function run () {
     : await readFromStdin();
 
   const json = input.pretty
-    ? JSON.stringify(parser.parseStdout(inputData), null, '  ')
-    : JSON.stringify(parser.parseStdout(inputData));
+    ? JSON.stringify(parser.parseStdout(inputData, input.clean), null, '  ')
+    : JSON.stringify(parser.parseStdout(inputData, input.clean));
 
   if (input.output) {
     await writeFileAsync(input.output, json, { encoding: 'utf8' });
