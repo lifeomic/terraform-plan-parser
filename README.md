@@ -88,10 +88,11 @@ parse-terraform-plan --help
 
 ```
 Options:
-  --help        Show help                                              [boolean]
-  --version     Show version number                                    [boolean]
-  -i, --input   Input file (stdin is used if not provided)              [string]
-  -o, --output  Output file (stdout is used if not provided)            [string]
+  --help        Show help                                                   [boolean]
+  --version     Show version number                                         [boolean]
+  -i, --input   Input file (stdin is used if not provided)                  [string]
+  -o, --output  Output file (stdout is used if not provided)                [string]
+  -c, --clean   Input is already clean, only containing resource changes    [boolean]
   --pretty      Output JSON in pretty format          [boolean] [default: false]
 ```
 
