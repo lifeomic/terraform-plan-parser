@@ -74,3 +74,7 @@ test('should handle tainted resources', async (t) => {
 test('should handle modules', async (t) => {
   return runTest('12-modules', t);
 });
+
+test('should handle no changes', async (t) => {
+  return runTest('13-no-changes', t);
+});

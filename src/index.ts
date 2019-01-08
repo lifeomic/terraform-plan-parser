@@ -52,6 +52,7 @@ export interface ParseResult {
   changedDataSources: Array<Changed>;
 }
 
+const NO_CHANGES_STRING = '\nNo changes. Infrastructure is up-to-date.\n';
 const CONTENT_START_STRING = '\nTerraform will perform the following actions:\n';
 const CONTENT_END_STRING = '\nPlan:';
 const OLD_NEW_SEPARATOR = ' => ';
@@ -355,6 +356,11 @@ export function parseStdout (logOutput: string): ParseResult {
   result.changedDataSources = [];
 
   let lastChange = null;
+
+  if (logOutput.includes(NO_CHANGES_STRING)) {
+    // no changes to parse...
+    return result;
+  }
 
   const startPos = findParseableContentStartPos(logOutput);
   if (startPos === -1) {
