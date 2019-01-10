@@ -52,6 +52,7 @@ export interface ParseResult {
   changedDataSources: Array<Changed>;
 }
 
+const NO_CHANGES_CLEAN_STRING = 'This plan does nothing.';
 const NO_CHANGES_STRING = '\nNo changes. Infrastructure is up-to-date.\n';
 const CONTENT_START_STRING = '\nTerraform will perform the following actions:\n';
 const CONTENT_END_STRING = '\nPlan:';
@@ -357,8 +358,10 @@ export function parseStdout (logOutput: string, clean: boolean): ParseResult {
 
   let lastChange = null;
 
-  if (logOutput.includes(NO_CHANGES_STRING)) {
-    // no changes to parse...
+  // Check if no changes to parse...
+  if (logOutput.includes(NO_CHANGES_STRING) && !clean) {
+    return result;
+  } else if (logOutput.includes(NO_CHANGES_CLEAN_STRING) && clean) {
     return result;
   }
 
