@@ -1,13 +1,22 @@
 language: node_js
 node_js:
-- "8"
-- "10"
+  - "8"
+  - "10"
 script:
-- yarn test
-- yarn compile-src
+  - yarn test
+  - yarn compile-src
 after_success: yarn coverage
 
 notifications:
   email:
     on_success: never
     on_failure: always
+
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_KEY
+  on:
+    tags: true
+    repo: lifeomic/terraform-plan-parser
+    node: "8"
