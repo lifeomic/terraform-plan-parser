@@ -12,6 +12,7 @@ notifications:
     on_success: never
     on_failure: always
 
+before_deploy: cd work/dist
 deploy:
   provider: npm
   email: $NPM_EMAIL
