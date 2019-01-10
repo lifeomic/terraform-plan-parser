@@ -3,8 +3,7 @@ node_js:
   - "8"
   - "10"
 script:
-  - yarn test
-  - yarn compile-src
+  - yarn build
 after_success: yarn coverage
 
 notifications:
