@@ -340,6 +340,10 @@ function parseAttributeLine (line: string, lastChange: Changed, errors: Array<Pa
     result.new = newObj;
   }
 
+  if (result.old && result.old.value === result.new.value) {
+    return;
+  }
+
   if (forcesNewResource) {
     result.forcesNewResource = true;
   }
