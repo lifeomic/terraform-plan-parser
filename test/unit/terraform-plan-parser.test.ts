@@ -78,3 +78,7 @@ test('should handle modules', async (t) => {
 test('should handle no changes', async (t) => {
   return runTest('13-no-changes', t);
 });
+
+test('should ignore unchanged attributes', async (t) => {
+  return runTest('14-ignore-unchanged-attributes', t);
+});

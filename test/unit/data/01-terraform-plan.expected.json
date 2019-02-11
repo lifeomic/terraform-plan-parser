@@ -55,16 +55,6 @@
           },
           "forcesNewResource": true
         },
-        "family": {
-          "old": {
-            "type": "string",
-            "value": "sample-app"
-          },
-          "new": {
-            "type": "string",
-            "value": "sample-app"
-          }
-        },
         "network_mode": {
           "old": {
             "type": "string",
@@ -81,16 +71,6 @@
           },
           "new": {
             "type": "computed"
-          }
-        },
-        "task_role_arn": {
-          "old": {
-            "type": "string",
-            "value": "arn:aws:iam::123123123123:role/SampleApp"
-          },
-          "new": {
-            "type": "string",
-            "value": "arn:aws:iam::123123123123:role/SampleApp"
           }
         }
       },
@@ -111,16 +91,6 @@
             "type": "computed"
           },
           "forcesNewResource": true
-        },
-        "triggers.%": {
-          "old": {
-            "type": "string",
-            "value": "1"
-          },
-          "new": {
-            "type": "string",
-            "value": "1"
-          }
         },
         "triggers.deploy_job_hash": {
           "old": {

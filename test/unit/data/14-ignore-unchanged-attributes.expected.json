@@ -1,0 +1,25 @@
+{
+    "errors": [],
+    "changedResources": [
+      {
+        "action": "update",
+        "type": "aws_ecs_service",
+        "name": "sample_app",
+        "path": "aws_ecs_service.sample_app",
+        "changedAttributes": {
+          "setting.changed": {
+            "old": {
+              "type": "string",
+              "value": "A"
+            },
+            "new": {
+              "type": "string",
+              "value": "B"
+            }
+          }
+        }
+      }
+    ],
+    "changedDataSources": []
+  }
+  
