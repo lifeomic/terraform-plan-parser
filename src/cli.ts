@@ -60,8 +60,8 @@ async function run () {
     : await readFromStdin();
 
   const json = input.pretty
-    ? JSON.stringify(parser.parseStdout(inputData, input.clean), null, '  ')
-    : JSON.stringify(parser.parseStdout(inputData, input.clean));
+    ? JSON.stringify(parser.parseStdout(inputData, input), null, '  ')
+    : JSON.stringify(parser.parseStdout(inputData, input));
 
   if (input.output) {
     await writeFileAsync(input.output, json, { encoding: 'utf8' });

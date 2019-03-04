@@ -46,11 +46,19 @@ export class ParseError {
   message: String;
 }
 
+export interface ParseOptions {
+  clean: boolean;
+}
+
 export interface ParseResult {
   errors: Array<ParseError>;
   changedResources: Array<Changed>;
   changedDataSources: Array<Changed>;
 }
+
+const DEFAULT_PARSE_OPTIONS = {
+  'clean': false
+};
 
 const NO_CHANGES_CLEAN_STRING = 'This plan does nothing.';
 const NO_CHANGES_STRING = '\nNo changes. Infrastructure is up-to-date.\n';
@@ -348,8 +356,11 @@ function parseAttributeLine (line: string, lastChange: Changed, errors: Array<Pa
   lastChange.changedAttributes[name] = result;
 }
 
-export function parseStdout (logOutput: string, clean: boolean): ParseResult {
+export function parseStdout (logOutput: string, options?: ParseOptions): ParseResult {
   logOutput = stripAnsi(logOutput).replace(/\r\n/g, '\n');
+  const opts = options
+    ? options
+    : DEFAULT_PARSE_OPTIONS;
 
   const result = {} as ParseResult;
   result.errors = [];
@@ -359,13 +370,13 @@ export function parseStdout (logOutput: string, clean: boolean): ParseResult {
   let lastChange = null;
 
   // Check if no changes to parse...
-  if (logOutput.includes(NO_CHANGES_STRING) && !clean) {
+  if (logOutput.includes(NO_CHANGES_STRING) && !opts.clean) {
     return result;
-  } else if (logOutput.includes(NO_CHANGES_CLEAN_STRING) && clean) {
+  } else if (logOutput.includes(NO_CHANGES_CLEAN_STRING) && opts.clean) {
     return result;
   }
 
-  const startPos = clean
+  const startPos = opts.clean
     ? 0
     : findParseableContentStartPos(logOutput);
 
@@ -377,7 +388,7 @@ export function parseStdout (logOutput: string, clean: boolean): ParseResult {
     return result;
   }
 
-  const endPos = clean
+  const endPos = opts.clean
     ? logOutput.length
     : findParseableContentEndPos(logOutput, startPos);
 
