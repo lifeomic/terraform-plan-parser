@@ -14,7 +14,14 @@ const {
   DIST_PACKAGE_JSON_FILE
 } = require('../build-util');
 
-async function run () {
+// The possible version values are
+// [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]
+// Since <newversion> can be almost anything, rather than checking for each
+// possibility, just verify that only a restricted number of characters are
+// provided
+const ALLOWED_VERSION_PATTERN = /^[.0-9A-Za-z-]+$/
+
+async function run() {
 
   const inputs = await inquirer.prompt([
     {
@@ -23,6 +30,11 @@ async function run () {
       message: 'NPM MFA Token?',
     }
   ]);
+
+  // Sanity check version strings
+  if (!ALLOWED_VERSION_PATTERN.test(VERSION_TYPE)) {
+    throw new Error('Invalid version');
+  }
 
   await exec(`npm version ${VERSION_TYPE} --no-git-tag-version`, { cwd: DIST_DIR });
   await exec(`npm publish --access public --otp="${inputs.mfa_token}"`, { cwd: DIST_DIR });
