@@ -1,0 +1,6 @@
+[32m  [32m+[0m [32mnull_resource.test
+[0m      id:           <computed>
+      triggers.%:   "1"
+      triggers.foo: "bar"
+[0m
+[0m
