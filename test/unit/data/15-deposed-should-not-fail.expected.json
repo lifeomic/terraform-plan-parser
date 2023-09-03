@@ -1,0 +1,15 @@
+{
+   "errors":[],
+   "changedResources":[
+      {
+         "action":"destroy",
+         "type":"aws_launch_configuration",
+         "name":"sepia_spot",
+         "path":"module.sepia-execute.aws_launch_configuration.sepia_spot",
+         "changedAttributes":{},
+         "module":"sepia-execute",
+         "deposed": true
+      }
+   ],
+   "changedDataSources":[]
+}
