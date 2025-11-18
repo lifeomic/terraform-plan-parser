@@ -1,0 +1,31 @@
+{
+  "errors": [],
+  "changedResources": [
+    {
+      "action": "create",
+      "type": "null_resource",
+      "name": "test",
+      "path": "null_resource.test",
+      "changedAttributes": {
+        "id": {
+          "new": {
+            "type": "computed"
+          }
+        },
+        "triggers.%": {
+          "new": {
+            "type": "string",
+            "value": "1"
+          }
+        },
+        "triggers.foo": {
+          "new": {
+            "type": "string",
+            "value": "bar"
+          }
+        }
+      }
+    }
+  ],
+  "changedDataSources": []
+}

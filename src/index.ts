@@ -46,12 +46,21 @@ export class ParseError {
   message: String;
 }
 
+export interface ParseOptions {
+  clean: boolean;
+}
+
 export interface ParseResult {
   errors: Array<ParseError>;
   changedResources: Array<Changed>;
   changedDataSources: Array<Changed>;
 }
 
+const DEFAULT_PARSE_OPTIONS = {
+  'clean': false
+};
+
+const NO_CHANGES_CLEAN_STRING = 'This plan does nothing.';
 const NO_CHANGES_STRING = '\nNo changes. Infrastructure is up-to-date.\n';
 const CONTENT_START_STRING = '\nTerraform will perform the following actions:\n';
 const CONTENT_END_STRING = '\nPlan:';
@@ -351,8 +360,11 @@ function parseAttributeLine (line: string, lastChange: Changed, errors: Array<Pa
   lastChange.changedAttributes[name] = result;
 }
 
-export function parseStdout (logOutput: string): ParseResult {
+export function parseStdout (logOutput: string, options?: ParseOptions): ParseResult {
   logOutput = stripAnsi(logOutput).replace(/\r\n/g, '\n');
+  const opts = options
+    ? options
+    : DEFAULT_PARSE_OPTIONS;
 
   const result = {} as ParseResult;
   result.errors = [];
@@ -361,12 +373,17 @@ export function parseStdout (logOutput: string): ParseResult {
 
   let lastChange = null;
 
-  if (logOutput.includes(NO_CHANGES_STRING)) {
-    // no changes to parse...
+  // Check if no changes to parse...
+  if (logOutput.includes(NO_CHANGES_STRING) && !opts.clean) {
+    return result;
+  } else if (logOutput.includes(NO_CHANGES_CLEAN_STRING) && opts.clean) {
     return result;
   }
 
-  const startPos = findParseableContentStartPos(logOutput);
+  const startPos = opts.clean
+    ? 0
+    : findParseableContentStartPos(logOutput);
+
   if (startPos === -1) {
     result.errors.push({
       code: 'UNABLE_TO_FIND_STARTING_POSITION_WITHIN_STDOUT',
@@ -375,7 +392,9 @@ export function parseStdout (logOutput: string): ParseResult {
     return result;
   }
 
-  const endPos = findParseableContentEndPos(logOutput, startPos);
+  const endPos = opts.clean
+    ? logOutput.length
+    : findParseableContentEndPos(logOutput, startPos);
 
   if (endPos === -1) {
     result.errors.push({
