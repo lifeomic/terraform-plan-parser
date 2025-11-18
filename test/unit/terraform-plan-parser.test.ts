@@ -82,3 +82,7 @@ test('should handle no changes', async (t) => {
 test('should ignore unchanged attributes', async (t) => {
   return runTest('14-ignore-unchanged-attributes', t);
 });
+
+test('should ignore unchanged attributes', async (t) => {
+  return runTest('15-deposed-should-not-fail', t);
+});

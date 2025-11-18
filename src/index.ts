@@ -22,6 +22,7 @@ export interface Changed {
   changedAttributes: ChangedAttributesMap;
   newResourceRequired: boolean;
   tainted: boolean;
+  deposed: boolean;
 }
 
 export enum AttributeValueType {
@@ -93,7 +94,7 @@ ACTION_MAPPING['-/+'] = Action.REPLACE;
 ACTION_MAPPING['~'] = Action.UPDATE;
 ACTION_MAPPING['<='] = Action.READ;
 
-const ACTION_LINE_REGEX = /^(?:((?:.*\.)?module\.[^.]*)\.)?(?:(data)\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?$/;
+const ACTION_LINE_REGEX = /^(?:((?:.*\.)?module\.[^.]*)\.)?(?:(data)\.)?([^.]+)\.([^ ]+)( \(tainted\))?( \(new resource required\))?( \(deposed\))?$/;
 const ATTRIBUTE_LINE_REGEX = /^ {6}[^ ]/;
 
 // Convert something like "module.test1.module.test2" to "test1.test2"
@@ -131,7 +132,7 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
     return null;
   }
 
-  const [, module, dataSourceStr, type, name, taintedStr, newResourceRequiredStr] = match;
+  const [, module, dataSourceStr, type, name, taintedStr, newResourceRequiredStr, deposedStr] = match;
   const fullyQualifiedPath = [module, dataSourceStr, type, name].filter(str =>
     str && str.length > 0).join('.');
 
@@ -157,6 +158,10 @@ function parseActionLine (offset: number, line: string, action: Action, result: 
   } else {
     if (newResourceRequiredStr) {
       change.newResourceRequired = true;
+    }
+
+    if (deposedStr) {
+      change.deposed = true;
     }
 
     result.changedResources.push(change);
